@@ -1,0 +1,47 @@
+.div {
+   align-items: center; 
+}
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #0f0e17;
+    color: #fffffe;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+}
+
+.content {
+    text-align: center;
+    z-index: 10;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+p {
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+.cursor-ball {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 100;
+    transform: translate(-50%, -50%);
+    transition: 
+        transform 0.3s ease-out,
+        opacity 0.2s ease;
+    opacity: 0;
+    mix-blend-mode: difference;
+}
