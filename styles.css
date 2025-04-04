@@ -4,7 +4,7 @@
 body {
     margin: 0;
     padding: 0;
-    height: 100vh;
+    height: 50vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -44,4 +44,12 @@ p {
         opacity 0.2s ease;
     opacity: 0;
     mix-blend-mode: difference;
+}
+#input-box {
+    border-radius: 25px;
+    /* box-sizing: 20px; */
+}
+
+#add-btn {
+    border-radius: 25px;
 }
