@@ -48,3 +48,12 @@ function animate() {
 
 // Start animation
 animate();
+
+
+const listContainer = $("#task-container");
+const inputBox = $("input-box");
+
+$("button").on("click", function () {
+  const task = inputBox.val().trim();
+  if (!task) return alert("Write something");
+});
