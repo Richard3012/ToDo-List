@@ -1,3 +1,4 @@
+console.log("Script running");
 const cursorBall = document.querySelector(".cursor-ball");
 let mouseX = 0;
 let mouseY = 0;
@@ -5,55 +6,83 @@ let ballX = 0;
 let ballY = 0;
 let isCursorVisible = false;
 
-// Track mouse position
+// Mouse tracking
 document.addEventListener("mousemove", (e) => {
   mouseX = e.clientX;
   mouseY = e.clientY;
 
-  // Show cursor ball when mouse is moving
   if (!isCursorVisible) {
     cursorBall.style.opacity = "1";
     isCursorVisible = true;
   }
 });
 
-// Hide cursor ball when mouse leaves window
 document.addEventListener("mouseleave", () => {
   cursorBall.style.opacity = "0";
   isCursorVisible = false;
 });
 
-// Show cursor ball when mouse returns to window
 document.addEventListener("mouseenter", () => {
   cursorBall.style.opacity = "1";
   isCursorVisible = true;
 });
 
-// Animation loop for delayed movement
 function animate() {
-  // Calculate delayed position (easing effect)
   const distX = mouseX - ballX;
   const distY = mouseY - ballY;
 
-  // Adjust the 0.2 value to change delay amount
-  ballX = ballX + distX * 0.2;
-  ballY = ballY + distY * 0.2;
+  ballX = ballX + distX * 0.07;
+  ballY = ballY + distY * 0.07;
 
-  // Update cursor ball position
   cursorBall.style.left = `${ballX}px`;
   cursorBall.style.top = `${ballY}px`;
 
   requestAnimationFrame(animate);
 }
 
-// Start animation
 animate();
 
+// ToDo logic
+const taskContainer = $("#task-container");
+const inputTitle = $("#input-title");
+const inputBox = $("#input-box");
+const addBtn = $("#add-btn");
 
-const listContainer = $("#task-container");
-const inputBox = $("input-box");
+addBtn.on("click", function (event) {
+  event.preventDefault();
 
-$("button").on("click", function () {
+  const title = inputTitle.val().trim();
   const task = inputBox.val().trim();
-  if (!task) return alert("Write something");
+  if (!task || !title) return alert("Please enter both Title and Task");
+
+  const li = $("<li>").html(
+    `<strong>${title}</strong><br>${task}<span>&times;</span>`
+  );
+  taskContainer.append(li);
+
+  inputTitle.val("");
+  inputBox.val("");
+  saveData();
 });
+
+taskContainer.on("click", "li", function () {
+  $(this).toggleClass("done");
+  saveData();
+});
+
+taskContainer.on("click", "span", function (event) {
+  event.stopPropagation();
+  $(this).parent().remove();
+  saveData();
+});
+
+function saveData() {
+  localStorage.setItem("data", taskContainer.html());
+}
+
+function showTask() {
+  const savedData = localStorage.getItem("data");
+  if (savedData) taskContainer.html(savedData);
+}
+
+showTask();
